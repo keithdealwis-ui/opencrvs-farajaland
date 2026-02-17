@@ -11,6 +11,7 @@ on:
         options:
           - production
           - staging
+          - development
       core-image-tag:
         description: Core image tag
         required: true
@@ -27,6 +28,7 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: trstringer/manual-approval@v1
+        if: ${{ inputs.environment == 'production' || inputs.environment == 'staging' }}
         with:
           secret: ${{ github.TOKEN }}
           approvers: euanmillar,rikukissa,alsmk
